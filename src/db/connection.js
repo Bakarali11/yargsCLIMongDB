@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
+const { addMovie } = require("../movie");
 
 const connection = async (crudFunc, movieObj) => {
   try {
@@ -7,7 +8,7 @@ const connection = async (crudFunc, movieObj) => {
     await client.connect();
     const db = client.db("FavMovies");
     const collection = db.collection("Movies");
-    await crudFunc(movieObj, collection);
+    await crudFunc(collection, movieObj);
     client.close();
   } catch (error) {
     console.log(error);
